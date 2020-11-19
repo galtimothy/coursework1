@@ -1,36 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>After school classes & activities</title>
-        <script src="https://unpkg.com/vue"></script>
-        <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
-        <link rel="stylesheet" href="style.css">
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>After school classes & activities</title>
+    <script src="https://unpkg.com/vue"></script>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-    <body>
-        <div id="app">
-            <div class="topcontainer">
-                <button class="checkout">Checkout </button>
-            </div>
-            <div class="filters">
-                
-            </div>
+
+    <div id="app">
+        <div class="checkout-nav">
+            <button class="checkout">Checkout </button>
+        </div>
+        
+        <main>
             
-            <div class="container" v-for="lesson in sort">
-                <div class="card">
-                    <div class="card-image"><img v-bind:src="item.lessons.image"></div>
-                    <div class="card-info">
-                        <div class="card-subject">{{ item.lessons.subject }}</div>
-                        <div class="card-spaces">Spaces left: {{ item.lessons.availableSpaces }}</div>
-                        <div class="card-location">{{ item.lessons.location }}</div>
-                        <div class="card-price">£{{ item.lessons.price / 100 }}</div>
-                        <button class="addToCart" v-on:click="addToCart" :disabled="isAvailable">Add to cart</button>
+            <div class="lesson" v-for="lesson in sort">
+                <div class="holder">
+                    <div class="image" v-bind:style="{ 'background-image': 'url(' + lesson.image + ')' }"></div>
+                    <div class="info">
+                        <div class="subject">{{ lesson.subject }}</div>
+                        <div class="availability">Spaces left: {{ getAvailability(lesson) }}</div>
+                        <div class="location">in {{ lesson.location }}</div>
+                        <div class="price">£{{ lesson.price }}</div>
+                        <button @click="onClick" class="addToCart" :disabled="isAvailable">Add to cart</button>
                     </div>
                 </div>
             </div>
-        </div>
-        <script src="lessons.js"></script>
-    </body>
+        </main>
+
+    </div>
+
+    <script src="lessons.js"></script>
+    <script src="script.js"></script>
+    
+</body>
 </html>
